@@ -1,0 +1,55 @@
+ public void editTicket(int ticketNumber, String name, String passport) {
+        // Flag to check if ticket is found
+        boolean ticketFound = false;
+
+        // Read the current file data
+        List<String> updatedRecords = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(TEXT_FILE))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 4) {
+                    try{
+                        int currentTicketNumber = Integer.parseInt(data[0]);
+                        String currentName = data[2];
+                        String currentPassport = data[3];
+
+                        if (currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passport)) {
+                        // Ticket found, replace the line with new information
+                           String newName = JOptionPane.showInputDialog("Enter new name:");
+                           String newPassport = JOptionPane.showInputDialog("Enter new passport number:");
+                           String updatedLine = ticketNumber + "," + data[1] + "," + newName + "," + newPassport;
+                           updatedRecords.add(updatedLine);
+                           ticketFound = true;
+//                         
+                        } else {
+                           // Keep the existing record if it's not the one to edit
+                           updatedRecords.add(line);
+                        }
+                    }catch(NumberFormatException e){
+                        //skip invalid ticket number
+                    }
+                    
+                }
+            }
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Error reading the file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+            // If ticket was found, write the updated records back to the file
+            if (ticketFound) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(TEXT_FILE))) {
+                    for (String record : updatedRecords) {
+                        writer.write(record);
+                        writer.newLine();
+                    }
+                    JOptionPane.showMessageDialog(null, "Ticket updated successfully!");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Failed to update the text file.", "Text File Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ticket not found or details do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+            }     
+    }
