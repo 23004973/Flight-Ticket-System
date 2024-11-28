@@ -95,8 +95,6 @@ public class Flight {
     }
 
     public void editTicket(int ticketNumber, String name, String passport) {
-        // Flag to check if ticket is found
-        boolean ticketFound = false;
 
         // Read the current file data
         List<String> updatedRecords = new ArrayList<>();
@@ -117,7 +115,6 @@ public class Flight {
                         String newPassport = JOptionPane.showInputDialog("Enter new passport number:");
                         String updatedLine = ticketNumber + "," + flightID + "," + newName + "," + newPassport;
                         updatedRecords.add(updatedLine);
-                        ticketFound = true;
                         found = true;
                     } else {
                         // Keep the existing record if it's not the one to edit
