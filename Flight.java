@@ -52,9 +52,10 @@ public class Flight {
                 if (data.length == 4) {
                     try {
                         int ticketNumber = Integer.parseInt(data[0]);
+                        String flightID = data[1];
                         String name = data[2];
                         String passport = data[3];
-                        Passenger passenger = new Passenger(name, passport, ticketNumber);
+                        Passenger passenger = new Passenger(name, passport, ticketNumber,flightID);
 
                         if (confirmedCount < totalSeats) {
                             confirmedTickets[confirmedCount++] = passenger;
@@ -82,7 +83,7 @@ public class Flight {
 
     public void bookTicket(String name, String passportNumber) {
         int ticketNumber = confirmedCount + waitingList.size() + 1;  //formula of ticket number(set by ownself)
-        Passenger passenger = new Passenger(name, passportNumber, ticketNumber);
+        Passenger passenger = new Passenger(name, passportNumber, ticketNumber, flightID);
 
         if (confirmedCount < totalSeats) {
             confirmedTickets[confirmedCount++] = passenger;
@@ -94,7 +95,7 @@ public class Flight {
         }
     }
 
-    public void editTicket(int ticketNumber, String name, String passport) {
+    public void editTicket(int ticketNumber, String name, String passport, String flightID) {
 
         // Read the current file data
         List<String> updatedRecords = new ArrayList<>();
@@ -106,10 +107,11 @@ public class Flight {
                 String[] data = line.split(",");
                 if (data.length == 4) {
                     int currentTicketNumber = Integer.parseInt(data[0]);
+                    String currentFlightID = data[1];
                     String currentName = data[2];
                     String currentPassport = data[3];
 
-                    if (currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passport)) {
+                    if (currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passport) && currentFlightID.equals(flightID)) {
                         // Ticket found, replace the line with new information
                         String newName = JOptionPane.showInputDialog("Enter new name:");
                         String newPassport = JOptionPane.showInputDialog("Enter new passport number:");
@@ -144,16 +146,16 @@ public class Flight {
         }
     }
 
-    public void viewTicketStatus(int ticketNumber, String name, String passportNumber) {
+    public void viewTicketStatus(int ticketNumber, String name, String passportNumber, String flightID) {
         for (Passenger p : confirmedTickets) {
-            if (p != null && p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber)) {
+            if (p != null && p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber) && p.getFlightID().equals(flightID)) {
                 JOptionPane.showMessageDialog(null, "Ticket Status: Confirmed - " + p, "Ticket Status", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
         }
 
         for (Passenger p : waitingList) {
-            if (p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber)) {
+            if (p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber) && p.getFlightID().equals(flightID)) {
                 JOptionPane.showMessageDialog(null, "Ticket Status: Waiting - " + p, "Ticket Status", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -161,7 +163,7 @@ public class Flight {
         JOptionPane.showMessageDialog(null, "Ticket not found!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void cancelTicket(int ticketNumber, String name, String passportNumber) {
+    public void cancelTicket(int ticketNumber, String name, String passportNumber, String flightID) {
         List<String> updatedRecords = new ArrayList<>();
         boolean ticketFound = false;
 
@@ -173,11 +175,12 @@ public class Flight {
                 if (data.length == 4) {
                     try {
                         int currentTicketNumber = Integer.parseInt(data[0].trim());
+                        String currentFlightID = data[1].trim();
                         String currentName = data[2].trim();
                         String currentPassport = data[3].trim();
 
                         // Only add the row if it doesn't match the target ticket
-                        if (!(currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passportNumber))) {
+                        if (!(currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passportNumber) && currentFlightID.equals(flightID))) {
                             updatedRecords.add(line); // Keep non-target rows
                         } else {
                             // If it's the matching row, skip it
@@ -228,15 +231,15 @@ public class Flight {
 
 
 
-    public boolean FindTicket(int ticketNumber, String name, String passportNumber) {
+    public boolean FindTicket(int ticketNumber, String name, String passportNumber, String flightID) {
         for (Passenger p : confirmedTickets) {
-            if (p != null && p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber)) {
+            if (p != null && p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber) p.getFlightID().equals(flightID)) {
                 return true;
             }
         }
 
         for (Passenger p : waitingList) {
-            if (p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber)) {
+            if (p.getTicketNumber() == ticketNumber && p.getName().equals(name) && p.getPassportNumber().equals(passportNumber) && p.getFlightID().equals(flightID)) {
                 return true;
             }
         }
