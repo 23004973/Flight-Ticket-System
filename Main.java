@@ -49,7 +49,7 @@ public class Main {
                             .findFirst()
                             .orElse(null);
                     if (flight != null) {
-                        flight.bookTicket(name, passport);
+                        flight.bookTicket(name, passport, flightID);
                     } else {
                         JOptionPane.showMessageDialog(null, "Flight not found!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
