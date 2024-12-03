@@ -81,7 +81,7 @@ public class Flight {
         return flightID;
     }
 
-    public void bookTicket(String name, String passportNumber) {
+    public void bookTicket(String name, String passportNumber, String flightID) {
         int ticketNumber = confirmedCount + waitingList.size() + 1;  //formula of ticket number(set by ownself)
         Passenger passenger = new Passenger(name, passportNumber, ticketNumber, flightID);
 
