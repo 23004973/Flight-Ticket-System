@@ -1,4 +1,4 @@
- public void editTicket(int ticketNumber, String name, String passport) {
+ public void editTicket(int ticketNumber, String name, String passport, String flightID) {
         // Flag to check if ticket is found
         boolean ticketFound = false;
 
@@ -12,10 +12,11 @@
                 if (data.length == 4) {
                     try{
                         int currentTicketNumber = Integer.parseInt(data[0]);
+                        String currentFlightID = data[1];
                         String currentName = data[2];
                         String currentPassport = data[3];
 
-                        if (currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passport)) {
+                        if (currentTicketNumber == ticketNumber && currentName.equals(name) && currentPassport.equals(passport) && currentFlightID.equals(flightID)) {
                         // Ticket found, replace the line with new information
                            String newName = JOptionPane.showInputDialog("Enter new name:");
                            String newPassport = JOptionPane.showInputDialog("Enter new passport number:");
