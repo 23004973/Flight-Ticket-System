@@ -62,12 +62,13 @@ public class Main {
                         int ticketNumber = Integer.parseInt(JOptionPane.showInputDialog("Enter ticket number to edit:"));
                         String passportNumber = JOptionPane.showInputDialog("Enter passport number:");
                         String NAME = JOptionPane.showInputDialog("Enter the name:");
+                        String FlightID = JOptionPane.showInputDialog("Enter the flight ID:");
 
                         // Search for the ticket to edit
                         boolean ticketFound = false;
                         for (Flight f : system.getFlights()) {
-                            if (f.FindTicket(ticketNumber, NAME, passportNumber)) {
-                                f.editTicket(ticketNumber, NAME, passportNumber);
+                            if (f.FindTicket(ticketNumber, NAME, passportNumber, FlightID)) {
+                                f.editTicket(ticketNumber, NAME, passportNumber, FlightID);
                                 ticketFound = true;
                                 break;
                             }
@@ -89,12 +90,14 @@ public class Main {
                         int ticketNumber = Integer.parseInt(JOptionPane.showInputDialog("Enter ticket number to view the status:"));
                         String passportNumber = JOptionPane.showInputDialog("Enter passport number:");
                         String Name = JOptionPane.showInputDialog("Enter the name to view status");
+                        String FlightID = JOptionPane.showInputDialog("Enter the flight ID to view status:");
+
 
                         boolean found = false;
 
                         for (Flight f : system.getFlights()) {
-                            if (f.FindTicket(ticketNumber, Name, passportNumber)) {
-                                f.viewTicketStatus(ticketNumber, Name, passportNumber);
+                            if (f.FindTicket(ticketNumber, Name, passportNumber, FlightID)) {
+                                f.viewTicketStatus(ticketNumber, Name, passportNumber, FlightID);
                                 found = true;
                                 break; // Exit loop once ticket status is found
                             }
@@ -116,15 +119,17 @@ public class Main {
                         int cancelTicketNumber = Integer.parseInt(JOptionPane.showInputDialog("Enter ticket number to cancel:"));
                         String cancelPassportNumber = JOptionPane.showInputDialog("Enter passport number:");
                         String passengerName = JOptionPane.showInputDialog("Enter the name:");
+                        String FlightID = JOptionPane.showInputDialog("Enter the flight ID:");
+
 
                         boolean found = false;
 
                         // Iterate through all flights in the system to find the ticket
                         for (Flight f : system.getFlights()) {
                             // Use the findTicket method to check for a matching ticket
-                            if (f.FindTicket(cancelTicketNumber, passengerName, cancelPassportNumber)) {
+                            if (f.FindTicket(cancelTicketNumber, passengerName, cancelPassportNumber, FlightID)) {
                                 // If ticket found, cancel it
-                                f.cancelTicket(cancelTicketNumber, passengerName, cancelPassportNumber);
+                                f.cancelTicket(cancelTicketNumber, passengerName, cancelPassportNumber, FlightID);
                                 found = true;
                                 break; // Exit loop after finding and canceling the ticket
                             }
