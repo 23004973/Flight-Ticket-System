@@ -4,11 +4,13 @@ public class Passenger {
     private String name;
     private String passportNumber;
     private int ticketNumber;
+    private String flightID;
 
-    public Passenger(String name, String passportNumber, int ticketNumber){
+    public Passenger(String name, String passportNumber, int ticketNumber, String flightID){
         this.name=name;
         this.passportNumber=passportNumber;
         this.ticketNumber=ticketNumber;
+        this.flightID=flightID;
     }
 
     public String getName(){
@@ -35,11 +37,20 @@ public class Passenger {
         this.ticketNumber = ticketNumber;
     }
 
+     public int getFlightID() {
+        return flightID;
+    }
+
+    public void setFlightID(String flightID) {
+        this.flightID = flightID;
+    }
+
     public String toString(){
         return "\n\nPassenger:" +
                 "\nName = " + name  +
                 "\nPassport = " + passportNumber +
-                "\nTicket Number = " + ticketNumber;
+                "\nTicket Number = " + ticketNumber +
+                "\nFlightID= " + flightID;
 
     }
 }
